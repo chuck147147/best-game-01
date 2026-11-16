@@ -1,6 +1,5 @@
-# ECHO ARENA / 回声战场
+# ECHO ARENA
 
-你最大的敌人，是三秒前的你自己。  
 Your deadliest enemy is you, three seconds ago.
 
 A neon survival arena where every shot leaves a ghost at its muzzle position. Each ghost replays that direction every three seconds, four times, and its violet bullets can kill enemies or you. Build a field of delayed fire, read its countdown rings, and keep moving as homing diamonds, splitting hexagons, and telegraphed dashers close in. After each cleared wave, draft one of seven echo-focused upgrades. Build combo scoring chains, with echo kills building the chain twice as fast. Dash with Shift/Space and shoot your own echo nodes to detonate them—the blast never harms you. Every fifth wave brings THE WARDEN, a boss with radial barrages and summons. Your firepower becomes the battlefield.

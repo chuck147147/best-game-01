@@ -40,7 +40,7 @@ export class Renderer {
   game.particles.draw(c);c.restore();c.restore();
   c.drawImage(this.vignette,0,0);
   this.hud(game);
-  if(boss&&(game.state==='playing'||game.state==='upgrade')){this.label('WARDEN // 守望者',430,140,10,C.magenta,'left',2);const g=c.createLinearGradient(430,0,850,0);g.addColorStop(0,C.magenta);g.addColorStop(1,C.red);this.bar(430,146,420,10,boss.hp/boss.maxHp,g);c.strokeStyle='rgba(190,180,255,.16)';c.strokeRect(430,146,420,10);for(let i=1;i<14;i++)this.line(430+i*30,146,430+i*30,156,'rgba(8,6,20,.85)',2);}
+  if(boss&&(game.state==='playing'||game.state==='upgrade')){this.label('WARDEN',430,140,10,C.magenta,'left',2);const g=c.createLinearGradient(430,0,850,0);g.addColorStop(0,C.magenta);g.addColorStop(1,C.red);this.bar(430,146,420,10,boss.hp/boss.maxHp,g);c.strokeStyle='rgba(190,180,255,.16)';c.strokeRect(430,146,420,10);for(let i=1;i<14;i++)this.line(430+i*30,146,430+i*30,156,'rgba(8,6,20,.85)',2);}
   if(game.banner>0&&game.state==='playing'){c.save();const a=Math.min(1,game.banner);c.globalAlpha=a;this.label(`WAVE ${String(game.director.wave).padStart(2,'0')}`,640,195,40,C.text,'center',6,850);this.line(360-60*a,181,440,181,C.echo);this.line(840,181,920+60*a,181,C.echo);this.label('THE PAST IS CATCHING UP',640,222,11,C.echo,'center',3);c.restore();}
   if(game.state==='playing'&&this.bossT<1.2)this.bossIntro();
   if(game.redFlash>0){const g=c.createRadialGradient(WIDTH/2,HEIGHT/2,220,WIDTH/2,HEIGHT/2,700);g.addColorStop(0,'transparent');g.addColorStop(1,`rgba(248,70,80,${game.redFlash})`);c.fillStyle=g;c.fillRect(0,0,WIDTH,HEIGHT);}
@@ -103,14 +103,14 @@ export class Renderer {
   this.text(`P PAUSE · M ${game.sound.muted?'UNMUTE':'MUTE'}`,1238,787,10.5,C.muted,'right');
  }
  veil(alpha=.8){const c=this.ctx;c.fillStyle=`rgba(6,4,15,${alpha})`;c.fillRect(0,0,WIDTH,HEIGHT);}
- bossIntro(){const c=this.ctx,t=this.bossT;let a=t<.3?t/.3:t<.85?1:(1.2-t)/.35;a=a*a*(3-2*a);c.save();c.fillStyle='rgba(3,2,10,.94)';c.fillRect(0,0,WIDTH,58*a);c.fillRect(0,HEIGHT-58*a,WIDTH,58*a);c.globalAlpha=a;this.line(0,58*a,WIDTH,58*a,C.magenta);this.line(0,HEIGHT-58*a,WIDTH,HEIGHT-58*a,C.magenta);this.label('WARDEN AWAKENS',640,396,30,C.text,'center',8,900);this.label('守 望 者 苏 醒',640,424,13,C.magenta,'center',6);c.restore();}
+ bossIntro(){const c=this.ctx,t=this.bossT;let a=t<.3?t/.3:t<.85?1:(1.2-t)/.35;a=a*a*(3-2*a);c.save();c.fillStyle='rgba(3,2,10,.94)';c.fillRect(0,0,WIDTH,58*a);c.fillRect(0,HEIGHT-58*a,WIDTH,58*a);c.globalAlpha=a;this.line(0,58*a,WIDTH,58*a,C.magenta);this.line(0,HEIGHT-58*a,WIDTH,HEIGHT-58*a,C.magenta);this.label('WARDEN AWAKENS',640,402,30,C.text,'center',8,900);c.restore();}
  title(game){
   const c=this.ctx;this.veil(.55);c.save();for(let i=0;i<3;i++){const r=(this.rt*90+i*150)%450;c.globalAlpha=.16*(1-r/450);c.strokeStyle=i===2?C.cyan:C.echo;c.lineWidth=1.5;c.beginPath();c.arc(640,430,r,0,Math.PI*2);c.stroke();}c.restore();
   this.label('S U R V I V E   Y O U R   O W N   E C H O',640,196,12,C.cyan,'center',6);
   c.save();c.shadowColor=C.echo;c.shadowBlur=34;this.label('ECHO ARENA',640,300,96,'rgba(167,139,250,.55)','center',10,900);c.restore();this.label('ECHO ARENA',640,300,96,C.text,'center',10,900);
-  this.label('回 声 战 场',640,352,30,C.echo,'center',12);this.line(532,384,748,384,'#544276');c.save();c.translate(640,384);c.rotate(Math.PI/4);c.fillStyle=C.echo;c.fillRect(-3,-3,6,6);c.restore();
-  this.text('你最大的敌人，是三秒前的你自己。',640,428,22,C.text,'center');this.text('Your deadliest enemy is you, three seconds ago.',640,456,15,C.muted,'center');
-  this.label('玩法 · HOW IT WORKS',150,505,11,C.cyan,'left',3);this.label('操作 · CONTROLS',690,505,11,C.cyan,'left',3);
+  this.line(532,384,748,384,'#544276');c.save();c.translate(640,384);c.rotate(Math.PI/4);c.fillStyle=C.echo;c.fillRect(-3,-3,6,6);c.restore();
+  this.text('Your deadliest enemy is you, three seconds ago.',640,428,16,C.text,'center');
+  this.label('HOW IT WORKS',150,505,11,C.cyan,'left',3);this.label('CONTROLS',690,505,11,C.cyan,'left',3);
   // Wrap these two complete instructions within their magazine column.
   const instructions=['01 — Every shot leaves an echo. It replays every 3 s — and it can kill you.','02 — Shoot your own echo nodes to detonate them. The blast never harms you.'];
   instructions.forEach((line,i)=>{const words=line.split(' ');let row='',y=529+i*39;for(const word of words){c.font='500 13.5px "Avenir Next","Segoe UI",system-ui,sans-serif';if(c.measureText(row+' '+word).width>440){this.text(row,150,y,13.5,C.text,'left',500);row=word;y+=17;}else row+=(row?' ':'')+word;}this.text(row,150,y,13.5,C.text,'left',500);});
@@ -120,14 +120,14 @@ export class Renderer {
  }
  upgrade(game){
   const c=this.ctx;this.veil(.8);this.glowAt(350,430,700,C.echo,.10);this.glowAt(930,430,700,C.echo,.10);
-  this.label(`WAVE ${String(game.director.wave).padStart(2,'0')} CLEARED`,640,225,30,C.text,'center',4,900);this.label('选择强化 · CHOOSE AN UPGRADE',640,258,14,C.echo,'center',3);
+  this.label(`WAVE ${String(game.director.wave).padStart(2,'0')} CLEARED`,640,225,30,C.text,'center',4,900);this.label('CHOOSE AN UPGRADE',640,258,14,C.echo,'center',3);
   const colors={twin:C.cyan,deep:C.echo,cryo:'#a5f3fc',overclock:C.gold,pierce:C.text,resonant:C.echo,repair:C.gold};
   for(const [i,choice]of game.choices.entries()){const r=cardRect(i),cx=r.x+CARD.w/2,n=game.upgrades[choice.id],color=colors[choice.id]||C.echo,hover=this.inside(game.input.mouse,r),t=Math.max(0,Math.min(1,(this.stateT-i*.09)/.35)),p=1-(1-t)**3;
    c.save();c.translate(0,(1-p)*18-(hover?6:0));c.globalAlpha=p;this.round(r.x,r.y,r.w,r.h,14);c.fillStyle='rgba(18,14,38,.90)';c.strokeStyle=hover?color:'rgba(190,180,255,.28)';c.lineWidth=1;if(hover){c.shadowBlur=18;c.shadowColor=color;}c.fill();c.stroke();c.shadowBlur=0;
    c.save();this.round(r.x,r.y,r.w,r.h,14);c.clip();c.fillStyle=color;c.fillRect(r.x,r.y,r.w,5);c.restore();
    this.num(String(i+1),r.x+22,r.y+30,13,color);if(n>0){this.round(r.x+r.w-103,r.y+14,88,23,12);c.strokeStyle=C.gold;c.stroke();this.label(`OWNED ×${n}`,r.x+r.w-59,r.y+30,10,C.gold,'center',0);}
-   this.upgradeIcon(choice.icon,cx,r.y+74,color);this.label(choice.name,cx,r.y+128,19,C.text,'center',1,800);this.text(choice.cn,cx,r.y+152,14,C.echo,'center');
-   const lines=[];let line='';for(const word of choice.desc.split(' ')){if(line&&(line+' '+word).length>26&&lines.length<1){lines.push(line);line=word;}else line+=(line?' ':'')+word;}if(line)lines.push(line);for(let j=0;j<lines.length;j++)this.text(lines[j],cx,r.y+178+j*16,12.5,C.muted,'center');c.restore();
+   this.upgradeIcon(choice.icon,cx,r.y+74,color);this.label(choice.name,cx,r.y+128,19,C.text,'center',1,800);
+   const lines=[];let line='';for(const word of choice.desc.split(' ')){if(line&&(line+' '+word).length>26&&lines.length<1){lines.push(line);line=word;}else line+=(line?' ':'')+word;}if(line)lines.push(line);for(let j=0;j<lines.length;j++)this.text(lines[j],cx,r.y+170+j*16,12.5,C.muted,'center');c.restore();
   }this.label('CLICK A CARD OR PRESS 1 · 2 · 3',640,600,12,C.muted,'center',2);
  }
  upgradeIcon(kind,cx,cy,color=C.cyan) {
