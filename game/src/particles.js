@@ -10,11 +10,14 @@ export class ParticleSystem {
  score(x,y,value) { this.add(x,y,PALETTE.white,'text',EFFECTS.textLife,18,0,-40,`+${value}`); }
  update(dt) { for(const p of this.items){p.life-=dt;p.x+=p.vx*dt;p.y+=p.vy*dt;} this.items=this.items.filter(p=>p.life>0); }
  draw(ctx) {
+  // Draw-only cache: particle simulation and random consumption stay untouched.
+  this.glows??=new Map();
+  const glow=color=>{if(!this.glows.has(color)){const a=document.createElement('canvas');a.width=a.height=128;const c=a.getContext('2d'),g=c.createRadialGradient(64,64,0,64,64,64);g.addColorStop(0,color);g.addColorStop(1,'transparent');c.fillStyle=g;c.fillRect(0,0,128,128);this.glows.set(color,a);}return this.glows.get(color);};
   ctx.save();ctx.globalCompositeOperation='lighter';
-  for(const p of this.items){const t=p.life/p.maxLife;ctx.globalAlpha=t;ctx.strokeStyle=ctx.fillStyle=p.color;ctx.lineWidth=2;
-   if(p.kind==='text'){ctx.font=`700 ${p.size}px system-ui`;ctx.textAlign='center';ctx.fillText(p.text,p.x,p.y);}
+  for(const p of this.items){const t=p.life/p.maxLife;ctx.globalAlpha=p.kind==='glow'?t**1.5:p.kind==='ring'?t**1.3:p.kind==='text'?Math.min(1,t*1.6):t;ctx.strokeStyle=ctx.fillStyle=p.color;ctx.lineWidth=2;
+   if(p.kind==='text'){ctx.font=`700 ${p.size}px "Avenir Next","Segoe UI",system-ui,sans-serif`;ctx.textAlign='center';ctx.fillText(p.text,p.x,p.y);}
    else if(p.kind==='ring'){ctx.beginPath();ctx.arc(p.x,p.y,p.size*(1-t)+4,0,Math.PI*2);ctx.stroke();}
-   else if(p.kind==='glow'){const g=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.size);g.addColorStop(0,p.color);g.addColorStop(1,'transparent');ctx.fillStyle=g;ctx.fillRect(p.x-p.size,p.y-p.size,p.size*2,p.size*2);}
+   else if(p.kind==='glow'){ctx.drawImage(glow(p.color),p.x-p.size,p.y-p.size,p.size*2,p.size*2);}
    else {ctx.save();ctx.translate(p.x,p.y);ctx.rotate(Math.atan2(p.vy,p.vx));ctx.fillRect(-p.size,-p.size/2,p.size*(p.kind==='shard'?3:2),p.size);ctx.restore();}
   }ctx.restore();
  }

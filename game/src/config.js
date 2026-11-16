@@ -1,6 +1,6 @@
 export const WIDTH = 1280, HEIGHT = 800;
 export const ARENA = { left: 42, right: 1238, top: 112, bottom: 752 };
-export const PALETTE = { floor:'#06040f', grid:'#171329', cyan:'#22d3ee', white:'#a5f3fc', echo:'#a78bfa', magenta:'#f471b5', orange:'#fb923c', red:'#f87171', text:'#eeeafa', muted:'#8f89aa' };
+export const PALETTE = { floor:'#06040f', grid:'#171329', cyan:'#22d3ee', white:'#a5f3fc', echo:'#a78bfa', magenta:'#f471b5', orange:'#fb923c', gold:'#fbbf24', red:'#f87171', text:'#eeeafa', muted:'#8f89aa' };
 export const PLAYER = { radius:14, hp:3, acceleration:2400, damping:11, speed:330, fireInterval:1/4.5, invincibility:1.2, recoil:48, muzzle:24 };
 export const BULLET = { speed:620, echoSpeed:430, burstSpeed:520, radius:4, hostileRadius:5, poolSize:512, trail:24 };
 export const DETONATE = { armTime:0.4, base:6, perReplay:2 };
