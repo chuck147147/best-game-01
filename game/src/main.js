@@ -9,6 +9,7 @@ const input=new Input(canvas,()=>sound.resume());
 const params=new URLSearchParams(location.search);
 const seed=params.has('seed')?Number(params.get('seed')):Date.now();
 const game=new Game(input,sound,seed);
+window.ECHO_ARENA=game;
 const renderer=new Renderer(canvas);
 function resize() {
  const scale=Math.min(innerWidth/WIDTH,innerHeight/HEIGHT),dpr=Math.min(devicePixelRatio||1,3);

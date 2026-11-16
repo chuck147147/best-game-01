@@ -31,5 +31,11 @@ export class SoundEngine {
  playerHurt() { this.hiss(0.4,0.6); this.tone(180,35,0.45,0.5,'sawtooth'); }
  waveStart() { [330,440,660].forEach((f,i)=>this.tone(f,f,0.24,0.2,'sine',i*0.09)); }
  gameOver() { [330,260,165,82].forEach((f,i)=>this.tone(f,f*0.7,0.5,0.25,'triangle',i*0.15)); }
+ upgradeOffer() { [523,659,784].forEach((f,i)=>this.tone(f,f,0.18,0.15,'sine',i*0.07)); }
+ upgradePick() { this.tone(784,1175,0.16,0.2,'triangle'); this.tone(1568,1568,0.12,0.08,'sine',0.03); }
+ detonate(){ this.tone(1200,120,0.28,0.28,'sawtooth'); this.hiss(0.25,0.32); this.tone(300,60,0.3,0.22,'triangle',0.02); }
+ dash(){ this.tone(240,720,0.14,0.15,'sine'); this.hiss(0.12,0.1); }
+ bossShoot(){ this.tone(196,98,0.22,0.18,'sawtooth'); }
+ bossDown(){ this.explosion(true); [660,440,220].forEach((f,i)=>this.tone(f,f*0.5,0.4,0.16,'triangle',i*0.1)); }
  uiClick() { this.tone(650,950,0.07,0.18); }
 }
